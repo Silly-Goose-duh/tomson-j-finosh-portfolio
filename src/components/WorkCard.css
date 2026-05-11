@@ -1,0 +1,187 @@
+/* WorkCard.css */
+
+/* ── Grid wrapper ── */
+.works-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* ── Card shell ── */
+.work-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  cursor: none;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+}
+.work-card:hover {
+  border-color: rgba(200, 240, 74, 0.2);
+  transform: translateY(-3px);
+}
+.work-card.featured {
+  grid-column: span 2;
+}
+
+/* ── Header row ── */
+.card-header {
+  padding: 32px 32px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+.card-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+.card-tag-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+/* ── Mock preview area ── */
+.card-mock {
+  height: 180px;
+  margin: 0 32px;
+  border-radius: 12px;
+  background: var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  position: relative;
+  overflow: hidden;
+}
+.card-mock.featured-mock { height: 260px; margin-top: 16px; }
+
+.mock-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+.mock-label { position: relative; z-index: 1; }
+
+/* ── Body text ── */
+.card-body {
+  padding: 20px 32px 0;
+}
+.card-title {
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.8px;
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+.card-desc {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+/* ── Footer row ── */
+.card-footer {
+  padding: 24px 32px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+.card-tech { display: flex; gap: 8px; flex-wrap: wrap; }
+.tech-pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--muted);
+  letter-spacing: 0.5px;
+}
+
+.card-expand-btn {
+  background: none;
+  border: none;
+  cursor: none;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.card-expand-btn:hover { color: var(--accent); }
+
+.expand-arrow {
+  transition: transform 0.3s ease;
+}
+.expand-arrow.open {
+  transform: rotate(180deg);
+}
+
+/* ── Expandable details panel ── */
+.card-details {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition:
+    max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity    0.4s ease;
+}
+.card-details.open {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.card-details-inner {
+  margin: 0 32px;
+  padding: 24px 0;
+  border-top: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.detail-block h4 {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+.detail-block p {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.detail-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: var(--accent2);
+  text-decoration: none;
+  margin-top: 8px;
+  cursor: none;
+}

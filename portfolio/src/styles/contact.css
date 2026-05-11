@@ -1,0 +1,114 @@
+/* ─── Contact Section ───────────────────────────────────── */
+.contact-section {
+  padding: 100px 60px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.contact-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 80px;
+}
+
+/* ─── Left ──────────────────────────────────────────────── */
+.contact-left {
+  flex: 1;
+}
+
+.contact-heading {
+  font-size: clamp(40px, 5vw, 72px);
+  font-weight: 800;
+  letter-spacing: -2.5px;
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+.contact-heading .accent {
+  color: var(--accent);
+}
+
+.contact-sub {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+  max-width: 400px;
+  margin-bottom: 48px;
+}
+
+.contact-links {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 18px 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  transition: border-color 0.2s, background 0.2s;
+  color: var(--text);
+}
+.contact-link:hover {
+  border-color: rgba(200, 240, 74, 0.25);
+  background: rgba(200, 240, 74, 0.03);
+}
+
+.link-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--border);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 15px;
+}
+
+.link-text {
+  flex: 1;
+}
+.link-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+.link-val {
+  font-weight: 600;
+  font-size: 15px;
+}
+
+.link-arrow {
+  color: var(--muted);
+}
+
+/* ─── Right: Vertical ghost email ───────────────────────── */
+.contact-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 20px;
+}
+
+.big-email-wrap {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  font-size: clamp(24px, 3vw, 42px);
+  font-weight: 700;
+  letter-spacing: -1px;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(232, 232, 224, 0.12);
+  user-select: none;
+  white-space: nowrap;
+}
