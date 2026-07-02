@@ -1,0 +1,64 @@
+:root {
+  --bg: #050505;
+  --paper: #f4f4f0;
+  --soft: #b8b8b2;
+  --muted: #8b8b86;
+  --quiet: #73736d;
+  --line: rgba(244, 244, 240, 0.14);
+  --line-strong: rgba(244, 244, 240, 0.34);
+  --nav-h: 72px;
+  --display: "Arial Narrow", "Roboto Condensed", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --serif: Georgia, "Times New Roman", serif;
+  color: var(--paper);
+  background: var(--bg);
+  font-family: var(--mono);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background:
+    radial-gradient(circle at 18% 12%, rgba(255, 255, 255, 0.07), transparent 24vw),
+    linear-gradient(180deg, #090909 0%, #050505 42%, #020202 100%);
+}
+
+body {
+  min-width: 320px;
+  min-height: 100svh;
+  margin: 0;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 79px, rgba(255, 255, 255, 0.028) 80px),
+    transparent;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font: inherit;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--paper);
+  outline-offset: 4px;
+}
+
+::selection {
+  background: var(--paper);
+  color: var(--bg);
+}
+
+#root {
+  min-height: 100svh;
+}

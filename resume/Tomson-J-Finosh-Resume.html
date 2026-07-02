@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tomson J. Finosh - Resume</title>
+    <style>
+      :root {
+        --ink: #111111;
+        --muted: #5f5f5f;
+        --line: #d9d9d9;
+        --soft: #f4f4f2;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background: #ffffff;
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.34;
+      }
+
+      .page {
+        width: 210mm;
+        min-height: 297mm;
+        padding: 16mm 16mm 14mm;
+        margin: 0 auto;
+      }
+
+      header {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 18px;
+        align-items: start;
+        padding-bottom: 12px;
+        border-bottom: 2px solid var(--ink);
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 36px;
+        line-height: 0.95;
+        letter-spacing: -1px;
+        text-transform: uppercase;
+      }
+
+      .tagline {
+        margin: 8px 0 0;
+        max-width: 520px;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.4px;
+      }
+
+      .contact {
+        display: grid;
+        gap: 4px;
+        text-align: right;
+        font-size: 10.5px;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      main {
+        display: grid;
+        grid-template-columns: 0.72fr 1.28fr;
+        gap: 18px;
+        padding-top: 14px;
+      }
+
+      section {
+        break-inside: avoid;
+        margin-bottom: 13px;
+      }
+
+      h2 {
+        margin: 0 0 7px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid var(--line);
+        font-size: 11px;
+        letter-spacing: 1.4px;
+        text-transform: uppercase;
+      }
+
+      p {
+        margin: 0;
+        font-size: 11.2px;
+      }
+
+      .summary {
+        padding: 10px;
+        background: var(--soft);
+        border: 1px solid var(--line);
+      }
+
+      .item {
+        margin-bottom: 10px;
+      }
+
+      .item:last-child {
+        margin-bottom: 0;
+      }
+
+      .role {
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 2px;
+      }
+
+      .role strong {
+        font-size: 12.4px;
+      }
+
+      .role span {
+        flex: 0 0 auto;
+        color: var(--muted);
+        font-size: 10.5px;
+      }
+
+      .org {
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-size: 10.8px;
+      }
+
+      ul {
+        margin: 4px 0 0;
+        padding-left: 15px;
+      }
+
+      li {
+        margin: 0 0 3px;
+        font-size: 10.9px;
+      }
+
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .chips span {
+        border: 1px solid var(--line);
+        padding: 4px 6px;
+        background: #ffffff;
+        font-size: 10.2px;
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 7px;
+      }
+
+      .mini-list strong {
+        display: block;
+        font-size: 11.2px;
+      }
+
+      .mini-list span {
+        color: var(--muted);
+        font-size: 10.4px;
+      }
+
+      footer {
+        margin-top: 8px;
+        padding-top: 8px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header>
+        <div>
+          <h1>Tomson J. Finosh</h1>
+          <p class="tagline">Marketing-led CSE student, AI enthusiast, event builder, photographer, and campus community lead.</p>
+        </div>
+        <div class="contact">
+          <a href="mailto:tjj5279@gmail.com">tjj5279@gmail.com</a>
+          <a href="tel:+919895329319">+91 9895329319</a>
+          <span>Trivandrum, Kerala</span>
+          <a href="https://tomson-j-finosh.vercel.app">tomson-j-finosh.vercel.app</a>
+          <a href="https://github.com/Silly-Goose-duh">github.com/Silly-Goose-duh</a>
+          <a href="https://www.linkedin.com/in/tomson-j-finosh/">linkedin.com/in/tomson-j-finosh</a>
+        </div>
+      </header>
+
+      <main>
+        <aside>
+          <section>
+            <h2>Profile</h2>
+            <p class="summary">
+              3rd year CSE B.Tech student at Marian Engineering College with a strong pull toward marketing, branding, AI tools, events, and visual storytelling. Known for photography, campus media work, and leading ideas from messy first thoughts into real execution.
+            </p>
+          </section>
+
+          <section>
+            <h2>Education</h2>
+            <div class="mini-list">
+              <div>
+                <strong>B.Tech, Computer Science and Engineering</strong>
+                <span>Marian Engineering College, 2023 - 2027</span>
+              </div>
+              <div>
+                <strong>Higher Secondary Education</strong>
+                <span>St. Joseph's HSS, Trivandrum, 2021 - 2023</span>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h2>Skills</h2>
+            <div class="chips">
+              <span>Marketing</span>
+              <span>Branding</span>
+              <span>Event planning</span>
+              <span>Creative direction</span>
+              <span>Photography</span>
+              <span>Media coverage</span>
+              <span>Leadership</span>
+              <span>Community building</span>
+              <span>AI tools</span>
+              <span>Prompting</span>
+              <span>Web basics</span>
+              <span>GitHub</span>
+            </div>
+          </section>
+
+          <section>
+            <h2>Focus</h2>
+            <div class="mini-list">
+              <div>
+                <strong>AI and technology</strong>
+                <span>Exploring new AI tools, workflows, and practical ways to build with them.</span>
+              </div>
+              <div>
+                <strong>Creative execution</strong>
+                <span>Imagining out of the box, then staying disciplined enough to make it happen.</span>
+              </div>
+              <div>
+                <strong>Photography</strong>
+                <span>Event, people, media, and visual storytelling work across campus spaces.</span>
+              </div>
+            </div>
+          </section>
+        </aside>
+
+        <div>
+          <section>
+            <h2>Experience and Leadership</h2>
+            <div class="item">
+              <div class="role">
+                <strong>Marketing and Branding Officer</strong>
+                <span>2023 - Present</span>
+              </div>
+              <div class="org">Inspira Marian IEDC, Marian Engineering College</div>
+              <ul>
+                <li>Drive marketing, branding, and communication for the college innovation and entrepreneurship cell.</li>
+                <li>Shape event campaigns, visual direction, promotions, and audience-facing content across campus.</li>
+                <li>Coordinate with teams to turn ideas, deadlines, and moving parts into clear public-facing execution.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>Media Team Member and Photographer</strong>
+                <span>2023 - Present</span>
+              </div>
+              <div class="org">Marian Engineering College</div>
+              <ul>
+                <li>Contribute to campus media work through event coverage, photography, visual documentation, and creative support.</li>
+                <li>Recognized by peers for photography and for capturing people, moments, and event atmosphere with consistency.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>Marketing Intern</strong>
+                <span>2024</span>
+              </div>
+              <div class="org">MuLearn Foundation, 3 months</div>
+              <ul>
+                <li>Supported marketing efforts, communication activities, and community-focused outreach during the internship.</li>
+                <li>Worked around youth learning, community programs, and brand communication in a practical environment.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>FOSS Club Lead</strong>
+                <span>2025 - 2026</span>
+              </div>
+              <div class="org">Marian Engineering College</div>
+              <ul>
+                <li>Ran the FOSS Club for a year, helping keep technical curiosity and open-source culture active among students.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>Under25 Fellow</strong>
+                <span>2025 - 2026</span>
+              </div>
+              <div class="org">Under25</div>
+              <ul>
+                <li>Part of the Under25 fellowship, engaging with youth culture, creative communities, and event energy.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>Association and Student Council Involvement</strong>
+                <span>2023 - Present</span>
+              </div>
+              <div class="org">Marian Engineering College</div>
+              <ul>
+                <li>Contribute to student initiatives, event execution, coordination, and campus-level leadership responsibilities.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <h2>Selected Work</h2>
+            <div class="item">
+              <div class="role">
+                <strong>Personal Portfolio</strong>
+                <span>2026</span>
+              </div>
+              <div class="org">React, TypeScript, Vite, Vercel</div>
+              <ul>
+                <li>Built a dark, interactive portfolio for work, skills, story, contact, and resume access.</li>
+                <li>Designed the site around a broader identity: marketing, AI curiosity, coding, events, photography, and leadership.</li>
+              </ul>
+            </div>
+
+            <div class="item">
+              <div class="role">
+                <strong>Campus Events and Creative Campaigns</strong>
+                <span>Ongoing</span>
+              </div>
+              <div class="org">IEDC, association, student council, media team</div>
+              <ul>
+                <li>Conducted and supported multiple events, with continued interest in building more ambitious campus experiences.</li>
+                <li>Combine leadership, branding, media, and on-ground coordination to make events feel memorable and organized.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section>
+            <h2>Working Style</h2>
+            <p>
+              Calm, creative, and execution-focused. More marketing-brained than purely technical, but comfortable learning tools, building projects, experimenting with AI, and leading teams through real-world constraints. Leads with imagination, follows through with discipline.
+            </p>
+          </section>
+        </div>
+      </main>
+
+      <footer>
+        Portfolio, work archive, and contact details are available at tomson-j-finosh.vercel.app.
+      </footer>
+    </div>
+  </body>
+</html>
