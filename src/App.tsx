@@ -310,7 +310,7 @@ const projects: Project[] = [
   },
   {
     id: 'sharon-wedding',
-    category: 'creative-media',
+    category: 'ai-product',
     title: 'Sharon & Amala — Wedding site',
     hook: 'Custom wedding website and digital invitation',
     description: 'A wedding website with animated overlays and a matching 9:16 digital invitation card, built end-to-end for a friend\'s wedding.',
@@ -486,7 +486,7 @@ function SkillsPage() {
   const lineRefs = useRef<Map<string, SVGLineElement>>(new Map())
   const labelRefs = useRef<Map<string, SVGTextElement>>(new Map())
 
-  // Initialize simulation in an effect so refs and Math.random are not used during render
+  // Initialize simulation — all nodes start at center, burst outward
   const initialized = useRef(false)
   useEffect(() => {
     if (initialized.current) return
@@ -495,12 +495,15 @@ function SkillsPage() {
     const ys: number[] = []
     const vxs: number[] = []
     const vys: number[] = []
-    graphNodes.forEach((n, i) => {
-      const spread = i === 0 ? 0 : (Math.random() - 0.5) * 14
-      xs[i] = n.x + spread
-      ys[i] = n.y + (Math.random() - 0.5) * 14
-      vxs[i] = 0
-      vys[i] = 0
+    graphNodes.forEach((_, i) => {
+      // All nodes start at center
+      xs[i] = 50
+      ys[i] = 50
+      // Random kick to break symmetry — each node gets a unique direction
+      const angle = (Math.PI * 2 * i) / graphNodes.length + (Math.random() - 0.5) * 0.5
+      const speed = 0.3 + Math.random() * 0.4
+      vxs[i] = Math.cos(angle) * speed
+      vys[i] = Math.sin(angle) * speed
     })
     simRef.current = { x: xs, y: ys, vx: vxs, vy: vys }
   }, [])
@@ -551,10 +554,9 @@ function SkillsPage() {
           }
         }
 
-        // Center gravity — pull toward center of the container
-        const gStrength = nodes[i].id === 'tom' ? gravity * 2.5 : gravity
-        fx += (50 - s.x[i]) * gStrength
-        fy += (50 - s.y[i]) * gStrength
+        // Very mild center gravity — prevents drift but doesn't pull nodes in
+        fx += (50 - s.x[i]) * gravity * 0.08
+        fy += (50 - s.y[i]) * gravity * 0.08
 
         // Boundary force — push away from edges
         const edgeRepel = 0.004
