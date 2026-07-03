@@ -3,16 +3,65 @@ import {
   ArrowDownToLine,
   ArrowUpRight,
   AtSign,
+  Camera,
   Copy,
+  Cpu,
   GitBranch,
   Link as LinkIcon,
   MapPin,
+  TrendingUp,
+  Users,
 } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import duckAvatar from './assets/duck-avatar.jpg'
 import './App.css'
+
+type CategoryDef = {
+  id: string
+  label: string
+  icon: string
+  subpoints: string[]
+}
+
+type ProjectStatus = 'live' | 'in-development' | 'recurring' | 'archived'
+
+type Project = {
+  id: string
+  category: string
+  title: string
+  hook: string
+  description: string
+  status: ProjectStatus
+  statusLabel: string
+  stack: string[]
+  liveUrl?: string
+  githubUrl?: string
+  featured: boolean
+}
+
+type GitHubLabItem = {
+  id: string
+  title: string
+  tag: string
+  githubUrl: string
+  liveUrl?: string
+}
+
+const iconMap: Record<string, React.ElementType> = {
+  Cpu,
+  TrendingUp,
+  Users,
+  Camera,
+}
+
+const statusColors: Record<ProjectStatus, string> = {
+  live: '#6fcf97',
+  'in-development': '#f2c94c',
+  recurring: '#6ba4ff',
+  archived: '#888',
+}
 
 const contact = {
   name: 'Tomson J. Finosh',
@@ -43,9 +92,9 @@ const skillBuckets = [
       { name: 'React / TypeScript', level: 'daily driver', projectId: 'campuspass' },
       { name: 'Supabase', level: 'daily driver', projectId: 'campuspass' },
       { name: 'Tailwind CSS', level: 'daily driver', projectId: 'campuspass' },
-      { name: 'Next.js', level: 'comfortable', projectId: 'echonexus' },
+      { name: 'Next.js', level: 'comfortable', projectId: 'dot' },
       { name: 'Vercel (deploy/CI)', level: 'daily driver', projectId: 'campuspass' },
-      { name: 'React Native / Expo', level: 'learning', projectId: 'echonexus' },
+      { name: 'React Native / Expo', level: 'learning', projectId: 'dot' },
     ],
   },
   {
@@ -53,11 +102,11 @@ const skillBuckets = [
     label: 'Agentic / AI tooling',
     color: '#6fcf97',
     items: [
-      { name: 'OpenCode (custom agent building)', level: 'daily driver', projectId: 'echonexus' },
-      { name: 'MCP (Model Context Protocol)', level: 'comfortable', projectId: 'echonexus' },
-      { name: 'Anthropic API', level: 'comfortable', projectId: 'echonexus' },
-      { name: 'Ollama / local LLMs', level: 'learning', projectId: 'echonexus' },
-      { name: 'Vector memory (ChromaDB, pgvector)', level: 'learning', projectId: 'echonexus' },
+      { name: 'OpenCode (custom agent building)', level: 'daily driver', projectId: 'dot' },
+      { name: 'MCP (Model Context Protocol)', level: 'comfortable', projectId: 'dot' },
+      { name: 'Anthropic API', level: 'comfortable', projectId: 'dot' },
+      { name: 'Ollama / local LLMs', level: 'learning', projectId: 'dot' },
+      { name: 'Vector memory (ChromaDB, pgvector)', level: 'learning', projectId: 'dot' },
     ],
   },
   {
@@ -66,7 +115,7 @@ const skillBuckets = [
     color: '#f2c94c',
     items: [
       { name: 'PostgreSQL', level: 'comfortable', projectId: 'campuspass' },
-      { name: 'Fastify', level: 'learning', projectId: 'echonexus' },
+      { name: 'Fastify', level: 'learning', projectId: 'dot' },
       { name: 'Redis / BullMQ', level: 'learning', projectId: null },
       { name: 'Railway', level: 'learning', projectId: null },
       { name: 'Prisma', level: 'comfortable', projectId: 'campuspass' },
@@ -129,70 +178,158 @@ const bucketColors: Record<string, string> = {
   center: '#f4f4f0',
 }
 
-const projects = [
+const categories: CategoryDef[] = [
+  {
+    id: 'ai-product',
+    label: 'AI & Product Development',
+    icon: 'Cpu',
+    subpoints: ['AI & Machine Learning', 'Software Development', 'Product Development', 'Product Management', 'Innovation & Ideation'],
+  },
+  {
+    id: 'marketing-growth',
+    label: 'Marketing & Growth',
+    icon: 'TrendingUp',
+    subpoints: ['Marketing', 'Branding', 'Digital Marketing', 'Content Marketing'],
+  },
+  {
+    id: 'community-business',
+    label: 'Community & Business',
+    icon: 'Users',
+    subpoints: ['Community Building', 'Open Source', 'Sponsorship & Business Development', 'Public Speaking', 'Cross-functional Leadership', 'Project Ownership'],
+  },
+  {
+    id: 'creative-media',
+    label: 'Creative Media',
+    icon: 'Camera',
+    subpoints: ['Photography', 'Photo Editing', 'Video Editing', 'Creative Writing', 'Literature & Philosophy'],
+  },
+]
+
+const projects: Project[] = [
+  // AI & PRODUCT DEVELOPMENT
   {
     id: 'campuspass',
-    hook: 'Event platform for 3,000+ students at MEC, cut sign-up friction by replacing spreadsheets with real-time registration.',
-    name: 'CampusPass',
-    problem: 'MEC ran event sign-ups through Google Forms + WhatsApp — no real-time headcount, no way to track repeat attendees, leads flying blind on turnout. Students missed events buried in group chats.',
-    build: 'Built a full registration + discovery platform with Supabase for real-time data and row-level security per event. Caught and fixed an RLS bug that would\'ve let any signed-in user edit other clubs\' events before it shipped.',
-    proof: 'Live and in active use for MEC events. Superadmin panel provides oversight across all clubs.',
-    stack: 'React · TypeScript · Supabase · Tailwind · Framer Motion · Vercel',
-    links: [
-      { label: 'Live Site', url: 'https://mec-campuspass.vercel.app' },
-      { label: 'GitHub', url: 'https://github.com/Silly-Goose-duh/MakeYourPass' },
-    ],
+    category: 'ai-product',
+    title: 'CampusPass',
+    hook: 'Event platform live for 2,000+ students at MEC',
+    description: "MEC ran event sign-ups through Google Forms and WhatsApp broadcasts — no real-time headcount, no unified view across clubs. Built a full event hub where club admins create custom registration forms, students browse and register in one place, and a superadmin panel gives oversight across all clubs. Used Supabase row-level security to isolate each club's data.",
+    status: 'live',
+    statusLabel: 'LIVE · PRODUCTION',
+    stack: ['React', 'TypeScript', 'Supabase', 'Tailwind', 'Framer Motion'],
+    liveUrl: 'https://mec-campuspass.vercel.app',
+    githubUrl: 'https://github.com/Silly-Goose-duh/MakeYourPass',
+    featured: true,
   },
   {
-    id: 'echonexus',
-    hook: 'Personal AI command center with direct filesystem access — no cloud, no context loss between sessions.',
-    name: 'ECHO Nexus',
-    problem: 'Cloud AI assistants can\'t see what\'s on your screen and forget everything between sessions — no ambient awareness, no continuity across your workflow.',
-    build: 'Built a fully local AI engineering hub with Fastify backend + Next.js glassmorphism UI. Password-gated auth, project/agent/task CRUD, and remote mobile connectivity via React Native (coming). Key decision: ran everything locally for privacy and zero latency cost.',
-    proof: 'In active development, currently running with full CRUD workflows and terminal-connected agent orchestration.',
-    stack: 'Fastify · Next.js · React Native · TypeScript · Ollama · ChromaDB',
-    links: [
-      { label: 'GitHub', url: 'https://github.com/Silly-Goose-duh/Dot' },
-    ],
+    id: 'dot',
+    category: 'ai-product',
+    title: 'Dot',
+    hook: 'Personal AI engineering command center — direct filesystem/terminal access from your phone',
+    description: 'A password-gated command center for working with AI agents on real projects — live terminal access over WebSocket, git status/diff/commit operations, and secure filesystem read/write, all reachable remotely from a mobile client. Built as a monorepo: Fastify API, Next.js dashboard, Expo mobile app in progress. The core decision was giving remote AI-agent workflows the same file and git access a local dev session has, without opening it up beyond a single authenticated user.',
+    status: 'in-development',
+    statusLabel: 'IN DEVELOPMENT',
+    stack: ['Fastify', 'TypeScript', 'Next.js', 'Expo', 'WebSocket'],
+    githubUrl: 'https://github.com/Silly-Goose-duh/Dot',
+    featured: false,
   },
   {
-    id: 'passwordgen',
-    hook: 'Password generator with slot-machine animation and real-time strength analysis — one-click copy, zero bullshit.',
-    name: 'Password Generator',
-    problem: 'Most password generators are either boring text fields or sketchy websites you don\'t trust. No reason a utility can\'t feel premium.',
-    build: 'Built with Tailwind v4 and Framer Motion — slot-machine spin animation where characters settle from left to right with staggered timing. Strength meter estimates crack time using modern GPU benchmarks. All client-side, zero data leaves the browser.',
-    proof: 'Live at password-generator-virid-two.vercel.app — ships as a single static page, 364 KB gzipped.',
-    stack: 'React · TypeScript · Vite · Tailwind v4 · Framer Motion · Vercel',
-    links: [
-      { label: 'Live Site', url: 'https://password-generator-virid-two.vercel.app' },
-      { label: 'GitHub', url: 'https://github.com/Silly-Goose-duh/password-generator' },
-    ],
+    id: 'portfolio-system',
+    category: 'ai-product',
+    title: 'This portfolio',
+    hook: 'The site you\'re on — dark, animated, built with React and a very suspicious duck',
+    description: 'The portfolio itself: React, Framer Motion, fully responsive, built and iterated entirely through prompt-driven development with a custom OpenCode agent.',
+    status: 'live',
+    statusLabel: 'LIVE',
+    stack: ['React', 'TypeScript', 'Framer Motion', 'CSS'],
+    liveUrl: 'https://tomson-j-finosh.vercel.app',
+    githubUrl: 'https://github.com/Silly-Goose-duh/tomson-j-finosh-portfolio',
+    featured: false,
+  },
+
+  // MARKETING & GROWTH
+  {
+    id: 'iedc-branding',
+    category: 'marketing-growth',
+    title: 'Brand & campaign strategy — Inspira Marian IEDC',
+    hook: 'Marketing and Branding Officer, 3 years running',
+    description: 'Own visual identity, messaging, and campaign strategy across Inspira Marian IEDC\'s events and initiatives — from social campaigns to on-ground brand presence at large-scale events like Eden and TPT.',
+    status: 'recurring',
+    statusLabel: 'ONGOING · 3 YEARS',
+    stack: ['Brand strategy', 'Content', 'Campaign design'],
+    featured: true,
+  },
+
+  // COMMUNITY & BUSINESS
+  {
+    id: 'foss-lead',
+    category: 'community-business',
+    title: 'FOSS Club Lead — Marian Engineering College',
+    hook: 'Leading MEC\'s open-source community, 2025–2026',
+    description: 'Run the campus open-source community: organizing events, driving member engagement, and building the bridge between student developers and the wider open-source ecosystem.',
+    status: 'recurring',
+    statusLabel: '2025–2026',
+    stack: ['Community building', 'Open source', 'Event ops'],
+    featured: true,
   },
   {
-    id: 'wedding',
-    hook: 'Wedding RSVP site with Supabase — 100+ guests confirmed without a single spreadsheet.',
-    name: 'Sharon + Amala',
-    problem: 'Wedding guest lists devolve into WhatsApp chains, phone tag, and lost plus-ones. The couple needed a single source of truth for invites and meal counts.',
-    build: 'Built a no-fuss RSVP flow with Supabase for real-time guest tracking and a password-protected admin view. Deployed on Vercel with a custom domain. Took one weekend from idea to live.',
-    proof: 'Used for Sharon and Amala\'s wedding — live RSVPs, guest count tracking, and dietary preference collection in one place.',
-    stack: 'React · Supabase · Vercel · Tailwind',
-    links: [
-      { label: 'Live Site', url: 'https://sharonwedsamala.vercel.app' },
-      { label: 'GitHub', url: 'https://github.com/Silly-Goose-duh/sharon-weds-amala' },
-    ],
+    id: 'eden',
+    category: 'community-business',
+    title: 'Eden 3.0 & 4.0',
+    hook: 'State-level hackathon hosted by MEC, IEDC, and µLearn MCE',
+    description: 'A 2-day state-level hackathon — 24-hour build on day one, judging and winners on day two — challenging students to solve real industry problems. Ran across two editions, coordinating with Inspira Marian IEDC and µLearn MCE as co-hosts.',
+    status: 'recurring',
+    statusLabel: '2 EDITIONS RUN',
+    stack: ['Event strategy', 'Sponsorship', 'Cross-team coordination'],
+    liveUrl: 'https://eden.marian.ac.in/',
+    featured: false,
   },
   {
-    id: 'portfolio',
-    hook: 'This portfolio — dark, editorial, zero-template. Built to prove I can ship a complete frontend with no boilerplate.',
-    name: 'tomson-j-finosh',
-    problem: 'Most developer portfolios look identical — same Tailwind template, same bento grid, same tech stack badges. Wanted something that felt like a product, not a resume page.',
-    build: 'Built from scratch with plain CSS (no Tailwind), React Router, and Framer Motion. The memory mesh on the skills page is SVG, not canvas — readable, accessible, and animatable without a heavy 3D library. Key decision: monochrome palette forces hierarchy through typography and spacing, not color.',
-    proof: 'Live at tomson-j-finosh.vercel.app. Lighthouse scores: 98 Performance, 100 Accessibility.',
-    stack: 'React · Vite · Framer Motion · CSS (no framework) · Vercel',
-    links: [
-      { label: 'Live Site', url: 'https://tomson-j-finosh.vercel.app' },
-      { label: 'GitHub', url: 'https://github.com/Silly-Goose-duh/tomson-j-finosh-portfolio' },
-    ],
+    id: 'tpt',
+    category: 'community-business',
+    title: 'TPT 3.0 & 4.0 — The Perfect Trajectory',
+    hook: 'Kerala-wide orientation camp for newly-elected IEDC leads',
+    description: 'A two-day onboarding program for newly-elected IEDC team leads from across Kerala — aligning new leadership on strategy, execution, and what running an IEDC chapter actually takes. Organized sponsorship structure and statewide outreach across two editions.',
+    status: 'recurring',
+    statusLabel: '2 EDITIONS RUN',
+    stack: ['Event strategy', 'Sponsorship', 'Statewide outreach'],
+    liveUrl: 'https://tpt-4.vercel.app/',
+    featured: false,
+  },
+
+  // CREATIVE MEDIA
+  {
+    id: 'photography',
+    category: 'creative-media',
+    title: 'Photography & Video',
+    hook: 'The person people remember with a camera at every event — 3 years',
+    description: 'Event and portrait photography plus photo/video editing across IEDC and campus media work. [TODO: swap this card for a photo gallery grid component.]',
+    status: 'recurring',
+    statusLabel: '3 YEARS',
+    stack: ['Photography', 'Photo editing', 'Video editing'],
+    featured: true,
+  },
+  {
+    id: 'sharon-wedding',
+    category: 'creative-media',
+    title: 'Sharon & Amala — Wedding site',
+    hook: 'Custom wedding website and digital invitation',
+    description: 'A wedding website with animated overlays and a matching 9:16 digital invitation card, built end-to-end for a friend\'s wedding.',
+    status: 'live',
+    statusLabel: 'LIVE',
+    stack: ['React', 'AOS', 'tsParticles', 'canvas-confetti'],
+    liveUrl: 'https://sharonwedsamala.vercel.app',
+    githubUrl: 'https://github.com/Silly-Goose-duh/sharon-weds-amala',
+    featured: false,
+  },
+]
+
+const githubLab: GitHubLabItem[] = [
+  {
+    id: 'password-generator',
+    title: 'password-generator',
+    tag: 'LEARNING',
+    githubUrl: 'https://github.com/Silly-Goose-duh/password-generator',
+    liveUrl: 'https://password-generator-virid-two.vercel.app',
   },
 ]
 
@@ -334,7 +471,7 @@ function HomePage() {
 }
 
 function SkillsPage() {
-  const [selected, setSelected] = useState(graphNodes[0])
+  const [selected, setSelected] = useState<typeof graphNodes[0] | null>(null)
   const [hoveredEdge, setHoveredEdge] = useState<string | null>(null)
   const navigate = useNavigate()
 
@@ -383,6 +520,7 @@ function SkillsPage() {
       const gravity = 0.0004
       const damping = 0.95
       const minDist = 5
+      const boundary = 8 // padding from edge = 8%
 
       for (let i = 0; i < nodes.length; i++) {
         let fx = 0; let fy = 0
@@ -413,10 +551,17 @@ function SkillsPage() {
           }
         }
 
-        // Center gravity
+        // Center gravity — pull toward center of the container
         const gStrength = nodes[i].id === 'tom' ? gravity * 2.5 : gravity
         fx += (50 - s.x[i]) * gStrength
         fy += (50 - s.y[i]) * gStrength
+
+        // Boundary force — push away from edges
+        const edgeRepel = 0.004
+        if (s.x[i] < boundary) fx += edgeRepel * (boundary - s.x[i])
+        if (s.x[i] > 100 - boundary) fx -= edgeRepel * (s.x[i] - (100 - boundary))
+        if (s.y[i] < boundary) fy += edgeRepel * (boundary - s.y[i])
+        if (s.y[i] > 100 - boundary) fy -= edgeRepel * (s.y[i] - (100 - boundary))
 
         s.vx[i] = (s.vx[i] + fx) * damping
         s.vy[i] = (s.vy[i] + fy) * damping
@@ -429,8 +574,10 @@ function SkillsPage() {
 
         s.x[i] += s.vx[i]
         s.y[i] += s.vy[i]
-        s.x[i] = Math.max(4, Math.min(96, s.x[i]))
-        s.y[i] = Math.max(4, Math.min(96, s.y[i]))
+
+        // Hard clamp to boundary
+        s.x[i] = Math.max(boundary, Math.min(100 - boundary, s.x[i]))
+        s.y[i] = Math.max(boundary, Math.min(100 - boundary, s.y[i]))
 
         const el = nodeRefs.current[i]
         if (el) {
@@ -463,7 +610,7 @@ function SkillsPage() {
   useEffect(() => {
     const s = simRef.current
     if (!s) return
-    const idx = graphNodes.findIndex((n) => n.id === selected.id)
+    const idx = selected ? graphNodes.findIndex((n) => n.id === selected.id) : -1
     if (idx >= 0) {
       s.vx[idx] += (Math.random() - 0.5) * 0.3
       s.vy[idx] += (Math.random() - 0.5) * 0.3
@@ -477,18 +624,18 @@ function SkillsPage() {
   }
 
   function handleNodeDragStart(e: React.PointerEvent, i: number) {
-    const el = e.currentTarget as HTMLButtonElement
     const s = simRef.current!
     const startX = s.x[i]
     const startY = s.y[i]
-    const container = el.parentElement!
+    const container = e.currentTarget.parentElement!
     const rect = container.getBoundingClientRect()
+    const boundary = 8
 
     function onMove(ev: PointerEvent) {
       const dx = ((ev.clientX - e.clientX) / rect.width) * 100
       const dy = ((ev.clientY - e.clientY) / rect.height) * 100
-      s.x[i] = Math.max(4, Math.min(96, startX + dx))
-      s.y[i] = Math.max(4, Math.min(96, startY + dy))
+      s.x[i] = Math.max(boundary, Math.min(100 - boundary, startX + dx))
+      s.y[i] = Math.max(boundary, Math.min(100 - boundary, startY + dy))
       s.vx[i] = 0
       s.vy[i] = 0
     }
@@ -502,134 +649,155 @@ function SkillsPage() {
     window.addEventListener('pointerup', onUp)
   }
 
+  const sim = simRef.current
+
   return (
     <>
       <Nav />
-      <main className="page compact-page">
+      <main className="skills-page-layout">
+        {/* LEFT COLUMN: heading + buckets + node detail */}
+        <div className="skills-left">
+          <div className="skills-left-inner">
+            <section className="skills-header">
+              <p className="eyebrow">skills</p>
+              <h1 className="skills-title">memory mesh</h1>
+              <p className="skills-sub">Everything connects: AI curiosity, branding instincts, coding, photography, events, and leadership.</p>
+            </section>
 
-        {/* Currently deep-diving callout */}
-        <section className="skill-callout">
-          <p className="eyebrow">right now</p>
-          <p className="callout-text">going deeper on agentic architectures and local-first AI.</p>
-        </section>
+            {/* Skill buckets — compact single column */}
+            <section className="skills-buckets-col">
+              {skillBuckets.map((bucket) => (
+                <div key={bucket.id} className="skill-bucket" style={{ borderColor: bucket.color + '44' }}>
+                  <div className="bucket-head" style={{ color: bucket.color }}>
+                    {bucket.label}
+                  </div>
+                  <div className="bucket-items">
+                    {bucket.items.map((item) => (
+                      <button
+                        key={item.name}
+                        type="button"
+                        className={`skill-item ${item.projectId ? 'linked' : ''}`}
+                        onClick={() => handleSkillClick(item.projectId)}
+                        title={item.projectId ? `See this in action →` : undefined}
+                      >
+                        <span className="skill-name">{item.name}</span>
+                        <span className="skill-level" style={{ color: levelColors[item.level] }}>
+                          {item.level}
+                        </span>
+                        {item.projectId && <ArrowUpRight size={10} className="skill-arrow" />}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </section>
+          </div>
 
-        {/* Layer 1: Flat grouped skill list */}
-        <section className="skill-buckets">
-          {skillBuckets.map((bucket) => (
-            <div key={bucket.id} className="skill-bucket" style={{ borderColor: bucket.color + '44' }}>
-              <div className="bucket-head" style={{ color: bucket.color }}>
-                {bucket.label}
-              </div>
-              <div className="bucket-items">
-                {bucket.items.map((item) => (
+          {/* Node detail panel — docked at bottom of left column, never occludes graph */}
+          <aside className="mesh-readout-docked">
+            {selected ? (
+              <>
+                <div className="docked-head">
+                  <span className="eyebrow">selected node</span>
                   <button
-                    key={item.name}
                     type="button"
-                    className={`skill-item ${item.projectId ? 'linked' : ''}`}
-                    onClick={() => handleSkillClick(item.projectId)}
-                    title={item.projectId ? `See this in action →` : undefined}
+                    className="docked-close"
+                    onClick={() => setSelected(null)}
+                    aria-label="deselect"
                   >
-                    <span className="skill-name">{item.name}</span>
-                    <span className="skill-level" style={{ color: levelColors[item.level] }}>
-                      {item.level}
-                    </span>
-                    {item.projectId && <ArrowUpRight size={12} className="skill-arrow" />}
+                    ✕
                   </button>
-                ))}
-              </div>
-            </div>
-          ))}
-        </section>
-
-        {/* Layer 2: Memory mesh graph */}
-        <section className="page-heading" style={{ marginTop: '48px' }}>
-          <p className="eyebrow">memory mesh</p>
-          <h1>how it connects</h1>
-          <p>Drag nodes. Explore relationships. This is how the pieces talk to each other.</p>
-        </section>
-        <section className="skill-mesh">
-          <svg className="mesh-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-            {edges.map(([from, to, label]) => {
-              const a = graphNodes.findIndex((node) => node.id === from)
-              const b = graphNodes.findIndex((node) => node.id === to)
-              if (a < 0 || b < 0) return null
-              const edgeKey = `${from}-${to}`
-              const isHovered = hoveredEdge === edgeKey
-              return (
-                <g key={edgeKey}>
-                  <line
-                    ref={(el) => { if (el) lineRefs.current.set(edgeKey, el) }}
-                    x1={`${graphNodes[a].x}%`} y1={`${graphNodes[a].y}%`}
-                    x2={`${graphNodes[b].x}%`} y2={`${graphNodes[b].y}%`}
-                    stroke={isHovered
-                      ? (bucketColors[graphNodes.find((n) => n.id === from)?.bucket ?? 'center'] ?? '#888')
-                      : 'rgba(244, 244, 240, 0.18)'}
-                    strokeWidth={isHovered ? 0.6 : 0.18}
-                    style={{ transition: 'stroke 200ms, stroke-width 200ms, opacity 200ms' }}
-                  />
-                  {label && (
-                    <text
-                      ref={(el) => { if (el) labelRefs.current.set(edgeKey, el) }}
-                      x={`${(graphNodes[a].x + graphNodes[b].x) / 2}%`}
-                      y={`${(graphNodes[a].y + graphNodes[b].y) / 2 - 3}%`}
-                      fill={bucketColors[graphNodes.find((n) => n.id === from)?.bucket ?? 'center'] ?? '#888'}
-                      fontSize="2.5"
-                      textAnchor="middle"
-                      fontFamily="JetBrains Mono, monospace"
-                      opacity={isHovered ? 1 : 0}
-                      style={{ transition: 'opacity 200ms' }}
-                    >
-                      {label}
-                    </text>
-                  )}
-                </g>
-              )
-            })}
-          </svg>
-          {graphNodes.map((node, i) => (
-            <button
-              type="button"
-              key={node.id}
-              ref={(el) => { nodeRefs.current[i] = el }}
-              className={`mesh-node ${node.size} ${selected.id === node.id ? 'active' : ''}`}
-              style={{
-                left: `${graphNodes[i].x}%`,
-                top: `${graphNodes[i].y}%`,
-                borderColor: selected.id === node.id
-                  ? (bucketColors[node.bucket] ?? '#f4f4f0')
-                  : 'var(--line-strong)',
-                boxShadow: selected.id === node.id
-                  ? `0 0 20px ${(bucketColors[node.bucket] ?? '#f4f4f0') + '44'}`
-                  : '0 20px 80px rgba(0,0,0,0.45)',
-              }}
-              onPointerDown={(e) => handleNodeDragStart(e, i)}
-              onClick={() => setSelected(node)}
-              onMouseEnter={() => {
-                const connected = edges.filter((edge) => edge[0] === node.id || edge[1] === node.id)
-                connected.forEach((edge) => setHoveredEdge(`${edge[0]}-${edge[1]}`))
-              }}
-              onMouseLeave={() => setHoveredEdge(null)}
-            >
-              {node.label}
-            </button>
-          ))}
-          <aside className="mesh-readout">
-            <span>selected node</span>
-            <strong style={{ color: bucketColors[selected.bucket] ?? '#f4f4f0' }}>{selected.label}</strong>
-            <p>{meshCopy(selected.id)}</p>
-            {selected.id !== 'tom' && (
-              <p className="mesh-relation">
-                {edges
-                  .filter((edge) => (edge[0] === selected.id || edge[1] === selected.id) && (edge[0] === 'tom' || edge[1] === 'tom'))
-                  .map((edge) => {
-                    return edge[2] ? `relation: ${edge[2]} tom` : ''
-                  })
-                  .filter(Boolean)
-                  .join(' · ')}
-              </p>
+                </div>
+                <strong className="docked-title" style={{ color: bucketColors[selected.bucket] ?? '#f4f4f0' }}>
+                  {selected.label}
+                </strong>
+                <p className="docked-desc">{meshCopy(selected.id)}</p>
+                {selected.id !== 'tom' && (
+                  <p className="mesh-relation">
+                    {edges
+                      .filter((edge) => (edge[0] === selected.id || edge[1] === selected.id) && (edge[0] === 'tom' || edge[1] === 'tom'))
+                      .map((edge) => edge[2] ? `relation: ${edge[2]} tom` : '')
+                      .filter(Boolean)
+                      .join(' · ')}
+                  </p>
+                )}
+              </>
+            ) : (
+              <p className="docked-idle">click a node in the graph to explore how skills connect.</p>
             )}
           </aside>
-        </section>
+        </div>
+
+        {/* RIGHT COLUMN: memory mesh graph */}
+        <div className="skills-right">
+          <div className="skill-mesh-container">
+            <svg className="mesh-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              {edges.map(([from, to, label]) => {
+                const a = graphNodes.findIndex((node) => node.id === from)
+                const b = graphNodes.findIndex((node) => node.id === to)
+                if (a < 0 || b < 0) return null
+                const edgeKey = `${from}-${to}`
+                const isHovered = hoveredEdge === edgeKey
+                return (
+                  <g key={edgeKey}>
+                    <line
+                      ref={(el) => { if (el) lineRefs.current.set(edgeKey, el) }}
+                      x1={`${graphNodes[a].x}%`} y1={`${graphNodes[a].y}%`}
+                      x2={`${graphNodes[b].x}%`} y2={`${graphNodes[b].y}%`}
+                      stroke={isHovered
+                        ? (bucketColors[graphNodes.find((n) => n.id === from)?.bucket ?? 'center'] ?? '#888')
+                        : 'rgba(244, 244, 240, 0.18)'}
+                      strokeWidth={isHovered ? 0.6 : 0.18}
+                      style={{ transition: 'stroke 200ms, stroke-width 200ms, opacity 200ms' }}
+                    />
+                    {label && (
+                      <text
+                        ref={(el) => { if (el) labelRefs.current.set(edgeKey, el) }}
+                        x={`${(graphNodes[a].x + graphNodes[b].x) / 2}%`}
+                        y={`${(graphNodes[a].y + graphNodes[b].y) / 2 - 2}%`}
+                        fill={bucketColors[graphNodes.find((n) => n.id === from)?.bucket ?? 'center'] ?? '#888'}
+                        fontSize="2.2"
+                        textAnchor="middle"
+                        fontFamily="JetBrains Mono, monospace"
+                        opacity={isHovered ? 1 : 0}
+                        style={{ transition: 'opacity 200ms' }}
+                      >
+                        {label}
+                      </text>
+                    )}
+                  </g>
+                )
+              })}
+            </svg>
+            {graphNodes.map((node, i) => (
+              <button
+                type="button"
+                key={node.id}
+                ref={(el) => { nodeRefs.current[i] = el }}
+                className={`mesh-node ${node.size} ${selected?.id === node.id ? 'active' : ''}`}
+                style={{
+                  left: `${sim ? sim.x[i] : graphNodes[i].x}%`,
+                  top: `${sim ? sim.y[i] : graphNodes[i].y}%`,
+                  borderColor: selected?.id === node.id
+                    ? (bucketColors[node.bucket] ?? '#f4f4f0')
+                    : 'var(--line-strong)',
+                  boxShadow: selected?.id === node.id
+                    ? `0 0 20px ${(bucketColors[node.bucket] ?? '#f4f4f0') + '44'}`
+                    : '0 20px 80px rgba(0,0,0,0.45)',
+                }}
+                onPointerDown={(e) => handleNodeDragStart(e, i)}
+                onClick={() => setSelected(node)}
+                onMouseEnter={() => {
+                  const connected = edges.filter((edge) => edge[0] === node.id || edge[1] === node.id)
+                  connected.forEach((edge) => setHoveredEdge(`${edge[0]}-${edge[1]}`))
+                }}
+                onMouseLeave={() => setHoveredEdge(null)}
+              >
+                {node.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </main>
     </>
   )
@@ -656,79 +824,203 @@ function meshCopy(id: string) {
 function WorkPage() {
   const location = useLocation()
   const focusFromState = (location.state as { focusProject?: string } | null)?.focusProject ?? null
-  const [activeProject, setActiveProject] = useState<string | null>(focusFromState)
 
-  // Clear the route state after consuming it so reloads don't re-trigger
+  // Derive initial category from focusProject, default to 'ai-product'
+  const focusProject = focusFromState ? projects.find((p) => p.id === focusFromState) : null
+  const [activeCategory, setActiveCategory] = useState(focusProject?.category ?? 'ai-product')
+  const [activeProjectId, setActiveProjectId] = useState<string | null>(focusFromState)
+  const carouselRef = useRef<HTMLDivElement>(null)
+
+  // Clear route state on mount
   useEffect(() => {
     if (focusFromState) {
       window.history.replaceState({}, document.title)
     }
   }, [focusFromState])
 
+  // Filter projects for active category
+  const categoryProjects = projects.filter((p) => p.category === activeCategory)
+  const featured = categoryProjects.find((p) => p.id === activeProjectId)
+    ?? categoryProjects.find((p) => p.featured)
+    ?? categoryProjects[0]
+
+  function switchCategory(id: string) {
+    setActiveCategory(id)
+    const firstFeatured = projects.filter((p) => p.category === id).find((p) => p.featured)
+    setActiveProjectId(firstFeatured?.id ?? null)
+  }
+
+  function handlePrev() {
+    const idx = categoryProjects.findIndex((p) => p.id === activeProjectId)
+    const prev = (idx - 1 + categoryProjects.length) % categoryProjects.length
+    setActiveProjectId(categoryProjects[prev].id)
+  }
+
+  function handleNext() {
+    const idx = categoryProjects.findIndex((p) => p.id === activeProjectId)
+    const next = (idx + 1) % categoryProjects.length
+    setActiveProjectId(categoryProjects[next].id)
+  }
+
+  const category = categories.find((c) => c.id === activeCategory)!
+
   return (
     <>
       <Nav />
-      <main className="page compact-page">
+      <main className="page compact-page work-page">
 
-        <section className="page-heading">
-          <p className="eyebrow">projects</p>
-          <h1>things i have built.</h1>
-          <p>Each project starts with a real problem. Click any card for the full story — hook, build decisions, proof, and links.</p>
-        </section>
+        {/* Category nav — 4 pill tabs */}
+        <nav className="category-nav">
+          {categories.map((cat) => {
+            const Icon = iconMap[cat.icon]
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                className={`cat-pill ${activeCategory === cat.id ? 'active' : ''}`}
+                onClick={() => switchCategory(cat.id)}
+              >
+                <Icon size={16} />
+                <span>{cat.label}</span>
+              </button>
+            )
+          })}
+        </nav>
 
-        <section className="project-grid">
-          {projects.map((p) => (
-            <motion.button
-              type="button"
-              key={p.id}
-              className={`project-card ${activeProject === p.id ? 'open' : ''}`}
-              layout
-              onClick={() => setActiveProject(activeProject === p.id ? null : p.id)}
-            >
-              <div className="pc-header">
-                <span className="pc-hook">{p.hook}</span>
-                <h2>{p.name}</h2>
-                <small className="pc-stack-inline">{p.stack}</small>
-              </div>
-              <AnimatePresence>
-                {activeProject === p.id && (
-                  <motion.div
-                    className="pc-details"
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: 'auto' }}
-                    exit={{ opacity: 0, height: 0 }}
+        {/* Things I Do — subpoints strip */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            className="things-strip"
+            initial={{ opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -6 }}
+            transition={{ duration: 0.16 }}
+          >
+            {category.subpoints.map((point) => (
+              <span key={point} className="things-chip">{point}</span>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        {/* Featured project — large detail card */}
+        <AnimatePresence mode="wait">
+          <motion.section
+            key={activeProjectId}
+            className="featured-project"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {featured && <FeaturedProjectCard project={featured} />}
+          </motion.section>
+        </AnimatePresence>
+
+        {/* Project carousel — circular thumbnails */}
+        {categoryProjects.length > 1 && (
+          <section className="project-carousel-wrap">
+            <div className="carousel-nav-line">
+              <button type="button" className="carousel-arrow" onClick={handlePrev} aria-label="previous">
+                <ArrowUpRight size={18} style={{ rotate: '-135deg' }} />
+              </button>
+            </div>
+            <div className="project-carousel" ref={carouselRef}>
+              {categoryProjects.map((p) => {
+                const isActive = p.id === activeProjectId
+                const statusColor = statusColors[p.status] ?? '#888'
+                return (
+                  <button
+                    key={p.id}
+                    type="button"
+                    className={`carousel-thumb ${isActive ? 'active' : ''}`}
+                    onClick={() => setActiveProjectId(p.id)}
                   >
-                    <div className="pc-detail-row">
-                      <strong>Problem</strong>
-                      <p>{p.problem}</p>
+                    <div
+                      className="carousel-circle"
+                      style={{
+                        borderColor: isActive ? statusColor : 'var(--line-strong)',
+                        boxShadow: isActive ? `0 0 12px ${statusColor}44` : 'none',
+                        opacity: isActive ? 1 : 0.55,
+                        width: isActive ? 72 : 52,
+                        height: isActive ? 72 : 52,
+                      }}
+                    >
+                      <span className="carousel-circle-letter">{p.title[0]}</span>
                     </div>
-                    <div className="pc-detail-row">
-                      <strong>What I Built</strong>
-                      <p>{p.build}</p>
-                    </div>
-                    <div className="pc-detail-row">
-                      <strong>Proof</strong>
-                      <p>{p.proof}</p>
-                    </div>
-                    <div className="pc-detail-row">
-                      <strong>Stack</strong>
-                      <p>{p.stack}</p>
-                    </div>
-                    <div className="pc-links">
-                      {p.links.map((link) => (
-                        <a key={link.label} href={link.url} target="_blank" rel="noreferrer" className="pc-link">
-                          {link.label} <ArrowUpRight size={14} />
-                        </a>
-                      ))}
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.button>
-          ))}
+                    <span className={`carousel-label ${isActive ? 'active' : ''}`}>
+                      {p.title}
+                    </span>
+                  </button>
+                )
+              })}
+            </div>
+            <div className="carousel-nav-line right">
+              <button type="button" className="carousel-arrow" onClick={handleNext} aria-label="next">
+                <ArrowUpRight size={18} style={{ rotate: '45deg' }} />
+              </button>
+            </div>
+          </section>
+        )}
+
+        {/* GitHub lab strip — learning/fun projects */}
+        <section className="github-lab">
+          <p className="eyebrow" style={{ marginBottom: 14 }}>more on github</p>
+          <div className="github-lab-grid">
+            {githubLab.map((item) => (
+              <div key={item.id} className="gl-card">
+                <div className="gl-card-top">
+                  <span className="gl-tag">{item.tag}</span>
+                  <strong>{item.title}</strong>
+                </div>
+                <div className="gl-card-links">
+                  {item.liveUrl && (
+                    <a href={item.liveUrl} target="_blank" rel="noreferrer" className="gl-link">
+                      live <ArrowUpRight size={12} />
+                    </a>
+                  )}
+                  <a href={item.githubUrl} target="_blank" rel="noreferrer" className="gl-link">
+                    github <ArrowUpRight size={12} />
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
         </section>
       </main>
     </>
+  )
+}
+
+function FeaturedProjectCard({ project }: { project: Project }) {
+  return (
+    <div className="fp-card">
+      <div className="fp-card-main">
+        <span className="fp-status" style={{ color: statusColors[project.status] }}>
+          {project.statusLabel}
+        </span>
+        <h2 className="fp-title">{project.title}</h2>
+        <p className="fp-hook">{project.hook}</p>
+        <p className="fp-desc">{project.description}</p>
+        <div className="fp-stack">
+          {project.stack.map((s) => (
+            <span key={s} className="fp-stack-tag">{s}</span>
+          ))}
+        </div>
+        <div className="fp-card-links">
+          {project.liveUrl && (
+            <a href={project.liveUrl} target="_blank" rel="noreferrer" className="fp-link">
+              view project <ArrowUpRight size={14} />
+            </a>
+          )}
+          {project.githubUrl && (
+            <a href={project.githubUrl} target="_blank" rel="noreferrer" className="fp-link">
+              github <ArrowUpRight size={14} />
+            </a>
+          )}
+        </div>
+      </div>
+    </div>
   )
 }
 
