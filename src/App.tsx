@@ -501,7 +501,7 @@ function SkillsPage() {
       ys[i] = 50
       // Random kick to break symmetry — each node gets a unique direction
       const angle = (Math.PI * 2 * i) / graphNodes.length + (Math.random() - 0.5) * 0.5
-      const speed = 0.3 + Math.random() * 0.4
+      const speed = 0.6 + Math.random() * 0.6
       vxs[i] = Math.cos(angle) * speed
       vys[i] = Math.sin(angle) * speed
     })
@@ -518,11 +518,11 @@ function SkillsPage() {
       if (!running) return
       const s = simRef.current
       if (!s) return
-      const repulsion = 0.008
-      const attraction = 0.002
+      const repulsion = 0.015
+      const attraction = 0.0008
       const gravity = 0
-      const damping = 0.9
-      const minDist = 0.5
+      const damping = 0.97
+      const minDist = 8
       const boundary = 8 // padding from edge = 8%
 
       for (let i = 0; i < nodes.length; i++) {
@@ -559,7 +559,7 @@ function SkillsPage() {
         fy += (50 - s.y[i]) * gravity * 0.08
 
         // Boundary force — push away from edges
-        const edgeRepel = 0.004
+        const edgeRepel = 0.01
         if (s.x[i] < boundary) fx += edgeRepel * (boundary - s.x[i])
         if (s.x[i] > 100 - boundary) fx -= edgeRepel * (s.x[i] - (100 - boundary))
         if (s.y[i] < boundary) fy += edgeRepel * (boundary - s.y[i])
@@ -569,9 +569,9 @@ function SkillsPage() {
         s.vy[i] = (s.vy[i] + fy) * damping
 
         const speed = Math.sqrt(s.vx[i] * s.vx[i] + s.vy[i] * s.vy[i])
-        if (speed > 1.5) {
-          s.vx[i] = (s.vx[i] / speed) * 1.5
-          s.vy[i] = (s.vy[i] / speed) * 1.5
+        if (speed > 2.5) {
+          s.vx[i] = (s.vx[i] / speed) * 2.5
+          s.vy[i] = (s.vy[i] / speed) * 2.5
         }
 
         s.x[i] += s.vx[i]
@@ -662,7 +662,7 @@ function SkillsPage() {
           <div className="skills-left-inner">
             <section className="skills-header">
               <p className="eyebrow">skills</p>
-              <h1 className="skills-title">memory mesh</h1>
+              <h1 className="skills-title">skill mesh</h1>
               <p className="skills-sub">Everything connects: AI curiosity, branding instincts, coding, photography, events, and leadership.</p>
             </section>
 
