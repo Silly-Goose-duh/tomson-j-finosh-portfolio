@@ -1,73 +1,47 @@
-# React + TypeScript + Vite
+# Tomson J. Finosh — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Personal portfolio site showcasing builds, events, photography, skills, and contact. Designed with dark monochrome palette, editorial typography, and interactive 3D elements.
 
-Currently, two official plugins are available:
+## Live Demo
+https://tomson-j-finosh.vercel.app
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Tech Stack
+- React + TypeScript + Vite
+- React Router (SPA routing)
+- Framer Motion (page transitions, scroll reveals, micro-interactions)
+- React Three Fiber + Drei (3D mesh in hero)
+- Plain CSS with CSS variables (dark mode design system)
+- Vercel (hosting & deployment)
 
-## React Compiler
+## Pages
+- **Home** — Hero with 3D floating mesh, work highlights, duck mascot
+- **Work** — Category-filtered project showcase (AI & Product, Marketing & Growth, Community & Business, Creative Media) with featured cards, circular carousel, and GitHub lab
+- **Skills** — Two-column layout: skill buckets + force-directed skill graph (bounded, interactive)
+- **Contact** — Links for email, GitHub, LinkedIn, Instagram
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Getting Started
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open http://localhost:5173
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## Project Structure
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
 ```
+src/
+  App.tsx        All pages, components, data structures, types
+  App.css        Full styling with design tokens
+  index.css      Global resets and CSS variables
+```
+
+## Design System
+- **Background**: `#050505` (──bg), **Paper**: `#f4f4f0` (──paper)
+- **Type**: JetBrains Mono (nav/body), Arial Narrow (display), Georgia (serif)
+- **Transitions**: 160–200ms ease, spring for sidebar
+- **Dark mode only**
+
+## Deployment
+Deployed on Vercel. Push to `master` triggers auto-deploy (or use `vercel --prod --prebuilt` for local builds).
