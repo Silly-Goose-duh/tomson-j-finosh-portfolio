@@ -518,11 +518,11 @@ function SkillsPage() {
       if (!running) return
       const s = simRef.current
       if (!s) return
-      const repulsion = 0.0003
-      const attraction = 0.0006
-      const gravity = 0.0004
-      const damping = 0.95
-      const minDist = 5
+      const repulsion = 0.008
+      const attraction = 0.002
+      const gravity = 0
+      const damping = 0.9
+      const minDist = 0.5
       const boundary = 8 // padding from edge = 8%
 
       for (let i = 0; i < nodes.length; i++) {
