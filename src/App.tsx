@@ -235,7 +235,7 @@ const projects: Project[] = [
   {
     id: 'portfolio-system',
     category: 'ai-product',
-    title: 'This portfolio',
+    title: 'Personal portfolio',
     hook: 'The site you\'re on — dark, animated, built with React and a very suspicious duck',
     description: 'The portfolio itself: React, Framer Motion, fully responsive, built and iterated entirely through prompt-driven development with a custom OpenCode agent.',
     status: 'live',
