@@ -1,0 +1,143 @@
+import type { PortfolioContent } from './types';
+
+// Personal copy, links, and media live here. Concept artwork is labelled;
+// repository summaries and contact details come from the owner's public GitHub.
+export const content: PortfolioContent = {
+  seo: {
+    title: 'Silly Goose — A curious mind. A creative practice.',
+    description: 'AI, digital marketing, organised events, photography and words. Explore the projects and creative field notes of Silly Goose.',
+    keywords: ['creative portfolio', 'AI', 'digital marketing', 'events', 'photography', 'research', 'poetry'],
+    siteName: 'Silly Goose', personJobTitle: 'Creative developer and digital marketer', siteUrl: '', ogImage: '/og-card.png',
+  },
+  brand: { name: 'SILLY GOOSE', mark: 'SG', descriptor: 'A CURIOUS MIND. A CREATIVE PRACTICE.', credit: 'Made with intention. And a little overthinking.' },
+  navigation: {
+    ariaLabel: 'Portfolio sections', skipLabel: 'Skip to content', menuLabel: 'Open section menu', closeLabel: 'Close section menu', progressLabel: 'Page reading progress',
+    links: [{ label: 'About', href: '#intro' }, { label: 'Practice', href: '#skills' }, { label: 'Events', href: '#campaigns' }, { label: 'Work', href: '#work' }, { label: 'Field notes', href: '#social' }, { label: 'Let’s talk', href: '#contact' }],
+  },
+  hero: {
+    title: 'PORTFOLIO', subtitle: 'DIGITAL MARKETER',
+    descriptor: 'I build digital things, bring people together, and find stories in the in-between.',
+    image: '/portrait-cutout.webp', imageAlt: 'Tomson J Finosh, also known as Silly Goose',
+    portraitLabel: 'SILLY GOOSE', portraitPrompt: 'Creative developer, host & observer', issue: 'SELECTED WORK / 2026',
+    scrollCue: 'Meet the person', availability: 'Open to interesting conversations', workLink: 'Explore my work', signature: 'A little curious. A little unconventional.',
+  },
+  intro: {
+    heading: 'THE PERSON BEHIND THE PROJECTS', greeting: 'HELLO, I’M', index: '02', firstName: 'TOMSON J', lastName: 'FINOSH', aka: 'AKA SILLY GOOOSE', label: 'MORE THAN ONE THING',
+    paragraphs: [
+      'Part builder, part storyteller, always curious. I work where AI, marketing and personal branding meet—and where an idea starts becoming something people can actually use.',
+      'For the past few years, I’ve also been hosting and organising events. I love the human side of making things: bringing a room together, getting the details right, and giving people something to remember.',
+      'Away from the screen, it’s photography, psychology, research, poetry and classic literature. Different mediums. The same need to look a little closer.',
+    ],
+    links: [{ label: 'GitHub', href: 'https://github.com/Silly-Goose-duh', kind: 'github' }, { label: 'My writing', href: 'https://tommysblog.vercel.app', kind: 'live' }],
+    note: 'Somewhere between a carefully built system and a beautifully unfinished sentence.',
+  },
+  skills: {
+    heading: 'MANY HATS.\nONE MIND.', index: '03', label: 'THE PRACTICE', circleCaption: 'WAYS OF\nLOOKING', note: 'A multidisciplinary practice, held together by curiosity.',
+    items: [
+      { name: 'Events & experiences', detail: 'Hosting · organising · bringing people together', symbol: '01' },
+      { name: 'Marketing & brand', detail: 'Positioning · audience · a story worth telling', symbol: '02' },
+      { name: 'AI & digital products', detail: 'Agentic systems · interfaces · useful experiments', symbol: '03' },
+      { name: 'Photography & observation', detail: 'Light · composition · the overlooked details', symbol: '04' },
+      { name: 'Research & writing', detail: 'Questions · connections · words that stay', symbol: '05' },
+    ],
+  },
+  toolsAndAwards: {
+    heading: 'IDEA → REALITY', index: '04', cue: 'THE TOOLKIT', toolsLabel: 'GOOD IDEAS NEED GOOD TOOLS',
+    toolsNote: 'A mix of creative thinking and hands-on building. These are the tools behind my public projects.',
+    practiceLabel: 'HUMAN SIDE', practiceAreas: ['Creative direction', 'Event hosting & organising', 'Brand storytelling', 'Research & synthesis', 'Writing & observation'],
+    technicalLabel: 'DIGITAL SIDE', technicalAreas: ['React + TypeScript', 'Python & AI agents', 'Kotlin & Jetpack Compose', 'Figma & design systems', 'Vite, Next.js & Vercel'],
+    tools: ['React', 'TypeScript', 'Python', 'Figma', 'Kotlin', 'Next.js', 'Vercel'],
+    awardsLabel: 'THE APPROACH', awardsNote: 'Start with a question. Make something tangible. Keep paying attention.', awardsPlaceholder: 'THINK DEEPLY. MAKE THOUGHTFULLY. KEEP EXPLORING.',
+  },
+  campaigns: {
+    heading: 'GOOD PEOPLE.\nGREAT ENERGY.', index: '05 / ORGANISED EVENTS', statusLabel: 'BEYOND THE SCREEN',
+    intro: 'I organise events where people meet, learn, compete and build. From IEDC hackathons to college workshops and community gatherings, these are the events I’ve helped bring to life.',
+    cards: [
+      { id: 'gatherings', category: 'EVENT ARCHIVE / PLACEHOLDER', title: 'THE ROOM COMES ALIVE', prompt: 'A place for the gatherings I’ve helped bring together. Event names, dates and photographs to follow.', visual: 'campaign' },
+      { id: 'on-stage', category: 'HOSTING / PLACEHOLDER', title: 'ON THE MIC', prompt: 'The introductions, the conversations, the moments between the agenda. Hosting highlights to follow.', visual: 'research' },
+      { id: 'backstage', category: 'BEHIND THE SCENES / PLACEHOLDER', title: 'BEFORE THE DOORS OPEN', prompt: 'Planning, coordination and the little details that make a big difference. Process notes to follow.', visual: 'poster' },
+    ],
+    eventGroups: [
+      { title: 'IEDC', eyebrow: 'CAMPUS INNOVATION & ENTREPRENEURSHIP', items: [
+        { name: 'Eden 3.0', date: 'MAY 2024', description: 'All Kerala hackathon.' },
+        { name: 'Shalyam 1.0', date: 'AUG 2024', description: 'Ideathon.' },
+        { name: 'The Perfect Trajectory 3.0', date: 'FEB 2025', description: 'All Kerala IEDC leads meetup.' },
+        { name: 'Level Up', date: 'MAR 2025', description: 'Game development workshop.' },
+        { name: 'Eden 4.0', date: 'JUN 2025', description: 'All Kerala hackathon.' },
+        { name: 'Forge', date: 'JUN 2025', description: 'All Kerala IEDC nodal officers meetup.' },
+        { name: 'Shalyam 2.0', date: 'AUG 2025', description: 'Ideathon.' },
+        { name: 'The Perfect Trajectory 4.0', date: 'JUL 2026', description: 'All Kerala IEDC leads meetup.' },
+        { name: 'One Student One Idea', date: 'AUG 2026', description: 'Idea Box.' },
+        { name: 'Wellness Without Walls', date: 'SEP 2026', description: 'All Kerala, eight-day health awareness challenge.' },
+      ] },
+      { title: 'College communities', eyebrow: 'COMMUNITY PROGRAMMES', items: [
+        { name: 'Inter-College Valorant Tournament', date: 'TEJUSVI', description: 'College fest · Senate member.' },
+        { name: 'Internal Smart India Hackathon', date: 'IIC', description: 'Internal innovation programme.' },
+        { name: 'Project Hour', date: 'FOSS CLUB', description: 'Ideathon.' },
+        { name: 'Introduction to AI and its Possibilities', date: 'FOSS CLUB', description: 'Talk session.' },
+        { name: 'Python Unleashed', date: 'FOSS CLUB', description: 'Machine learning workshop.' },
+        { name: 'Travancore Hub Meet 2025', date: 'IEEE SB', description: 'Community meetup.' },
+      ] },
+      { title: 'Outside communities', eyebrow: 'BEYOND CAMPUS', items: [
+        { name: 'Olam 2026', date: '2026', description: 'Community event.' },
+        { name: 'Navranga', date: 'COMMUNITY', description: 'Outside-campus community event.' },
+      ] },
+    ],
+    research: [
+      { title: 'Modern Way Of Hiring', description: 'I’m researching and writing about portfolio-based hiring: how projects and proof of work can help people demonstrate their abilities beyond a CV.' },
+      { title: 'The New Era Of Marketing', description: 'I’m researching and writing about brand engineering: how positioning, design and customer experience work together to build a brand.' },
+    ],
+  },
+  work: {
+    heading: 'LESS TALK.\nMORE MAKING.', index: '06 / SELECTED WORK', statusLabel: 'BUILT WITH CURIOSITY',
+    intro: 'From AI companions to event platforms. A selection of things I’m building, exploring and sharing in public.',
+    linkLabel: 'View source', sectionNote: 'Original cover studies, not product screenshots. Follow each project to explore the source.',
+    projects: [
+      { id: 'neuroad', title: 'neuro.ad', eyebrow: '01 / MARKETING × AI', description: 'An ad-tech frontend for a landing page, workspace and fixture analysis. The public repository describes it as a frontend with no backend.', tags: ['React', 'Advertising', 'Interface'], href: 'https://github.com/Silly-Goose-duh/NeuroAd-frontend', live: { label: 'Visit website', href: 'https://neuroad-frontend.vercel.app' }, visual: 'campaign', cover: { label: 'AD-TECH / FRONTEND', title: 'neuro.ad', subtitle: 'A different perspective on advertising.' } },
+      { id: 'dot', title: 'DOT', eyebrow: '02 / MOBILE × AI', description: 'An Android-first personal productivity AI agent. Local-first architecture, typed tools and carefully controlled actions.', tags: ['Kotlin', 'Android', 'AI agent'], href: 'https://github.com/Silly-Goose-duh/DOT', visual: 'mobile', cover: { label: 'YOUR EVERYDAY, RECONSIDERED', title: 'dot.', subtitle: 'A little less friction. A little more focus.' } },
+      { id: 'make-your-pass', title: 'MakeYourPass', eyebrow: '03 / EVENTS × PRODUCT', description: 'A campus event platform for organisation portals, ticketing, QR check-in and a live host dashboard.', tags: ['TypeScript', 'React', 'Events'], href: 'https://github.com/Silly-Goose-duh/MakeYourPass', live: { label: 'Open the live build', href: 'https://makeyourpass.vercel.app' }, visual: 'event', cover: { label: 'ADMIT ONE / ALL THE POSSIBILITIES', title: 'YOU’RE IN.', subtitle: 'MakeYourPass — make it an occasion.' } },
+      { id: 'refro', title: 'Refro', eyebrow: '04 / SYSTEMS × INTERFACE', description: 'A local dashboard for DeepSeek Harness: chat, one-click tasks, skills, apps and automations in a single workspace.', tags: ['React', 'TypeScript', 'Vite'], href: 'https://github.com/Silly-Goose-duh/Refro', visual: 'dashboard', cover: { label: 'A PLACE FOR YOUR AI TO WORK', title: 'refro /', subtitle: 'Ideas, meet execution.' } },
+      { id: 'echo', title: 'echo / sheleftme', eyebrow: '05 / VOICE × AI', description: 'A voice and chat companion with local speech-to-text/text-to-speech, retrieval-augmented responses and crisis guardrails.', tags: ['Python', 'Voice', 'RAG'], href: 'https://github.com/Silly-Goose-duh/echo', live: { label: 'Try the live build', href: 'https://sheleftme.vercel.app' }, visual: 'dashboard', cover: { label: 'A CALMER KIND OF INTERFACE', title: 'echo', subtitle: 'Voice, chat and a little more care.' } },
+      { id: 'agent-vault', title: 'Agent Vault', eyebrow: '06 / AGENTS × MEMORY', description: 'A local-first memory layer for coding agents: a quiet watcher, markdown vault and dashboard without an Obsidian dependency.', tags: ['Python', 'CLI', 'Agents'], href: 'https://github.com/Silly-Goose-duh/agent-vault', visual: 'dashboard', cover: { label: 'MEMORY, WITHOUT THE NOISE', title: 'agent vault', subtitle: 'Quiet context for agents that build.' } },
+      { id: 'sharon-weds-amala', title: 'Sharon Weds Amala', eyebrow: '07 / WEB × OCCASION', description: 'A wedding RSVP website with event details, venue maps, Google Calendar support and Supabase-backed responses.', tags: ['React', 'Supabase', 'RSVP'], href: 'https://github.com/Silly-Goose-duh/sharon-weds-amala', live: { label: 'Open the live site', href: 'https://sharonwedsamala.vercel.app' }, visual: 'event', cover: { label: 'A DIGITAL INVITATION', title: 'Sharon + Amala', subtitle: 'Details, directions and a reason to celebrate.' } },
+      { id: 'nyaya-ai', title: 'Nyaya AI', eyebrow: '08 / AI × EXPLORATION', description: 'An owner-supplied AI project added to the portfolio. The case study, public repository and implementation details are ready to be linked here.', tags: ['AI', 'Case study', 'In progress'], href: 'https://github.com/Silly-Goose-duh', linkLabel: 'Project link pending', visual: 'mobile', note: 'Add the public Nyaya AI repository or live URL when available.', cover: { label: 'PROJECT DETAILS TO FOLLOW', title: 'nyaya ai', subtitle: 'An idea looking for its full story.' } },
+    ],
+    videoPlaceholder: { id: 'video-slot', category: 'MOTION / PLACEHOLDER', title: 'IN MOTION', prompt: 'Original footage to follow.', visual: 'photo' },
+  },
+  social: {
+    heading: 'THE OTHER\nSIDE OF ME.', index: '07 / HOBBIES & SKILLS', statusLabel: 'BEYOND WORK',
+    intro: 'Photography, reading and writing are a big part of my life beyond coding and events. These are the interests I enjoy and the creative skills I practise.', profiles: [],
+    note: 'Different interests. Skills I bring back to everything I make.',
+    skillCards: [
+      { name: 'Photography', detail: 'Composition, lighting and visual storytelling.', symbol: '01' },
+      { name: 'Poetry', detail: 'Creative writing, imagery and finding the right words.', symbol: '02' },
+      { name: 'Literature', detail: 'Close reading, interpretation and exploring different perspectives.', symbol: '03' },
+      { name: 'Research', detail: 'Asking questions, connecting ideas and writing clearly.', symbol: '04' },
+      { name: 'Psychology', detail: 'Observing behaviour, listening and understanding people.', symbol: '05' },
+    ],
+    categories: ['All notes', 'Photography', 'Research', 'Poetry & literature'], openLabel: 'Open note', closeLabel: 'Close note',
+    items: [
+      { id: 'light', category: 'Photography', title: 'Chasing the quiet', subtitle: 'Light, shadow, and a second look.', body: 'A home for a personal photography series about everyday light and the details we walk past. This composition is a placeholder study; original photographs, locations and captions will be added here.', visual: 'photo', status: 'PHOTO STUDY / PLACEHOLDER' },
+      { id: 'mind', category: 'Research', title: 'Why we pay attention', subtitle: 'People, patterns, and the questions underneath.', body: 'An open research notebook at the intersection of psychology, attention and digital experiences. This is a proposed direction for future notes, not a published research claim. Reading references and original observations will live here.', visual: 'research', status: 'RESEARCH NOTE / PLACEHOLDER' },
+      { id: 'words', category: 'Poetry & literature', title: 'Silence, and everything in between', subtitle: 'The Life of Tommy — a personal blog.', body: 'A space for perspective, solitude and reflection. My personal blog explores the quiet magic of night skies, classic literature, psychology and the things we tend to overthink.', visual: 'writing', status: 'FROM MY WRITING DESK', href: 'https://tommysblog.vercel.app', linkLabel: 'Read the blog' },
+      { id: 'afterhours', category: 'Photography', title: 'After the last light', subtitle: 'A future collection of slower moments.', body: 'A placeholder for an after-hours photography collection: quiet streets, long shadows and the feeling of the day winding down. Replace this study with original photographs in the content file.', visual: 'photo', status: 'PHOTO STUDY / PLACEHOLDER' },
+      { id: 'margins', category: 'Poetry & literature', title: 'Notes in the margins', subtitle: 'An unfinished shelf of words worth keeping.', body: 'A future home for original poems, reading notes and reflections on literature. This entry is an editorial placeholder. Finished writing and properly attributed excerpts can be added as the collection grows.', visual: 'writing', status: 'WRITING NOTE / PLACEHOLDER' },
+    ],
+  },
+  landing: {
+    heading: 'A SOFTER\nKIND OF SIGNAL.', index: '08 / THE WRITING DESK', statusLabel: 'WORDS / REFLECTION / LITERATURE', linkLabel: 'Explore the blog source',
+    intro: 'Between building systems and bringing people together, I leave a little room for words. The kind that don’t need a dashboard.',
+    projects: [{ id: 'blog', title: 'The Life of Tommy', eyebrow: 'A PERSONAL BLOG', description: 'Perspective, solitude and reflection. A small corner of the internet for a mind that rarely sits still.', tags: ['Poetry', 'Literature', 'Reflection'], href: 'https://github.com/Silly-Goose-duh/Blog.github.io', live: { label: 'Read the blog', href: 'https://tommysblog.vercel.app' }, visual: 'writing', cover: { label: 'FROM AN OPEN NOTEBOOK', title: 'Silence,', subtitle: 'and everything in between.' } }],
+    poster: { id: 'poster-slot', category: 'TYPE STUDY / PLACEHOLDER', title: 'LEAVE ROOM FOR WONDER.', prompt: 'An editorial placeholder for original poetry and printed experiments.', visual: 'poster' },
+  },
+  contact: {
+    heading: 'LET’S MAKE\nSOMETHING MATTER.', index: '09 / THE NEXT CHAPTER', message: 'A project, a gathering, a strange little idea? I’d love to hear what you’re thinking.',
+    placeholderTitle: 'THE INBOX IS OPEN', placeholderCopy: 'For projects, collaborations, events, and good conversations.',
+    github: { label: 'Find me on GitHub', href: 'https://github.com/Silly-Goose-duh', kind: 'github' },
+    instagram: { label: 'Instagram · handle to be added', href: '', kind: 'contact' },
+    email: 'gooseisback4u@gmail.com', emailLabel: 'Say hello', copyLabel: 'Copy email address', copiedLabel: 'Email copied', copyError: 'Please select and copy the email above.',
+    footerNote: 'Made with intention. And a little overthinking.', topLabel: 'Back to top',
+  },
+  motion: { pause: 'Pause motion', play: 'Resume motion', cursor: 'Explore' },
+  accessibility: { externalLink: 'Opens in a new tab', openGithub: 'Open the public GitHub profile', scrollProgress: 'Scroll progress' },
+};

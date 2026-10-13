@@ -1,0 +1,20 @@
+:root {
+  color-scheme: light;
+  --ink: #050505;
+  --ink-2: #141414;
+  --cream: #e3e0b4;
+  --cream-2: #d4d0a0;
+  --paper: #f4f3e6;
+  --white: #fffefa;
+  --muted: #94917c;
+  --line-ink: rgba(5, 5, 5, .15);
+  --line-paper: rgba(244, 243, 230, .18);
+  --display: 'Anton', Impact, sans-serif;
+  --body: 'Poppins', 'Inter Variable', sans-serif;
+  --text: 'Inter Variable', Arial, sans-serif;
+  --r-card: 2.5rem;
+  --r-soft: 1.5rem;
+  --space-x: clamp(1.25rem, 5vw, 5.5rem);
+  --space-y: clamp(4.75rem, 10vw, 9rem);
+  --scroll-progress: 0%;
+}
