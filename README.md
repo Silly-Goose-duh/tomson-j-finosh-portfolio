@@ -1,6 +1,6 @@
 # Silly Goose — Creative Portfolio
 
-Live site: [i-wanna-make-a-portfolio-that.vercel.app](https://i-wanna-make-a-portfolio-that.vercel.app)
+Live site: [tomson-j-finosh.vercel.app](https://tomson-j-finosh.vercel.app)
 
 A responsive, single-page creative portfolio built with React 18, TypeScript, Vite, GSAP/ScrollTrigger and Lenis. The project follows the supplied editorial black-and-cream brief and keeps the editable portfolio content in `src/content/content.ts`.
 
@@ -16,7 +16,7 @@ The development server listens on port 3000. Production builds prerender the con
 
 The GitHub repository is [Silly-Goose-duh/tomson-j-finosh-portfolio](https://github.com/Silly-Goose-duh/tomson-j-finosh-portfolio). Vercel project `tomson-j-finosh` builds the root directory using `npm ci` and `npm run build`, then publishes `dist/`, as configured in `vercel.json`.
 
-Set the Vercel production environment variable `PUBLIC_SITE_URL` to `https://i-wanna-make-a-portfolio-that.vercel.app` so the prerendered SEO metadata uses the live origin.
+The complete page is also available as a single-page PDF at [`/portfolio.pdf`](https://tomson-j-finosh.vercel.app/portfolio.pdf), with a download button in the contact section. Set the Vercel production environment variable `PUBLIC_SITE_URL` to `https://tomson-j-finosh.vercel.app` so the prerendered SEO metadata uses the live origin.
 
 ## Personalise the content
 

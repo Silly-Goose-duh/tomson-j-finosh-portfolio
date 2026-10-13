@@ -143,6 +143,7 @@ export interface PortfolioContent {
     placeholderCopy: string;
     github: ExternalLink;
     instagram: ExternalLink;
+    pdf: { label: string; href: string };
     footerNote: string;
     topLabel: string;
     email: string;

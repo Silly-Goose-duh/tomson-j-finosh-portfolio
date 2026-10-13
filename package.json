@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "vite --host 0.0.0.0 --port 3000",
     "build": "tsc --noEmit && vite build && node scripts/prerender.mjs",
+    "pdf": "node scripts/generate-pdf.mjs",
     "typecheck": "tsc --noEmit",
     "preview": "vite preview --host 0.0.0.0 --port 3000"
   },

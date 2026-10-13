@@ -135,6 +135,7 @@ export const content: PortfolioContent = {
     placeholderTitle: 'THE INBOX IS OPEN', placeholderCopy: 'For projects, collaborations, events, and good conversations.',
     github: { label: 'Find me on GitHub', href: 'https://github.com/Silly-Goose-duh', kind: 'github' },
     instagram: { label: 'Instagram · handle to be added', href: '', kind: 'contact' },
+    pdf: { label: 'Download portfolio PDF', href: '/portfolio.pdf' },
     email: 'gooseisback4u@gmail.com', emailLabel: 'Say hello', copyLabel: 'Copy email address', copiedLabel: 'Email copied', copyError: 'Please select and copy the email above.',
     footerNote: 'Made with intention. And a little overthinking.', topLabel: 'Back to top',
   },
