@@ -5,9 +5,9 @@ import type { PortfolioContent } from './types';
 export const content: PortfolioContent = {
   seo: {
     title: 'Silly Goose — A curious mind. A creative practice.',
-    description: 'AI, digital marketing, organised events, photography and words. Explore the projects and creative field notes of Silly Goose.',
-    keywords: ['creative portfolio', 'AI', 'digital marketing', 'events', 'photography', 'research', 'poetry'],
-    siteName: 'Silly Goose', personJobTitle: 'Creative developer and digital marketer', siteUrl: '', ogImage: '/og-card.png',
+    description: 'Brand engineering, AI, organised events, photography and words. Explore the projects and creative field notes of Silly Goose.',
+    keywords: ['creative portfolio', 'brand engineering', 'AI', 'events', 'photography', 'research', 'poetry'],
+    siteName: 'Silly Goose', personJobTitle: 'Brand engineer', siteUrl: '', ogImage: '/og-card.png',
   },
   brand: { name: 'SILLY GOOSE', mark: 'SG', descriptor: 'A CURIOUS MIND. A CREATIVE PRACTICE.', credit: 'Made with intention. And a little overthinking.' },
   navigation: {
@@ -15,16 +15,16 @@ export const content: PortfolioContent = {
     links: [{ label: 'About', href: '#intro' }, { label: 'Practice', href: '#skills' }, { label: 'Events', href: '#campaigns' }, { label: 'Work', href: '#work' }, { label: 'Field notes', href: '#social' }, { label: 'Let’s talk', href: '#contact' }],
   },
   hero: {
-    title: 'PORTFOLIO', subtitle: 'DIGITAL MARKETER',
-    descriptor: 'I build digital things, bring people together, and find stories in the in-between.',
+    title: 'PORTFOLIO', subtitle: 'BRAND ENGINEER',
+    descriptor: 'I engineer brands, build digital things, bring people together, and find stories in the in-between.',
     image: '/portrait-cutout.webp', imageAlt: 'Tomson J Finosh, also known as Silly Goose',
-    portraitLabel: 'SILLY GOOSE', portraitPrompt: 'Creative developer, host & observer', issue: 'SELECTED WORK / 2026',
+    portraitLabel: 'SILLY GOOSE', portraitPrompt: 'Brand engineer, host & observer', issue: 'SELECTED WORK / 2026',
     scrollCue: 'Meet the person', availability: 'Open to interesting conversations', workLink: 'Explore my work', signature: 'A little curious. A little unconventional.',
   },
   intro: {
-    heading: 'THE PERSON BEHIND THE PROJECTS', greeting: 'HELLO, I’M', index: '02', firstName: 'TOMSON J', lastName: 'FINOSH', aka: 'AKA SILLY GOOOSE', label: 'MORE THAN ONE THING',
+    heading: 'THE PERSON BEHIND THE PROJECTS', greeting: 'HELLO, I’M', index: '02', firstName: 'TOMSON J', lastName: 'FINOSH', aka: 'AKA SILLY GOOSE', label: 'MORE THAN ONE THING',
     paragraphs: [
-      'Part builder, part storyteller, always curious. I work where AI, marketing and personal branding meet—and where an idea starts becoming something people can actually use.',
+      'Part builder, part storyteller, always curious. I work where brand engineering, AI and digital experiences meet—and where an idea starts becoming something people can actually use.',
       'For the past few years, I’ve also been hosting and organising events. I love the human side of making things: bringing a room together, getting the details right, and giving people something to remember.',
       'Away from the screen, it’s photography, psychology, research, poetry and classic literature. Different mediums. The same need to look a little closer.',
     ],
@@ -134,9 +134,10 @@ export const content: PortfolioContent = {
     heading: 'LET’S MAKE\nSOMETHING MATTER.', index: '09 / THE NEXT CHAPTER', message: 'A project, a gathering, a strange little idea? I’d love to hear what you’re thinking.',
     placeholderTitle: 'THE INBOX IS OPEN', placeholderCopy: 'For projects, collaborations, events, and good conversations.',
     github: { label: 'Find me on GitHub', href: 'https://github.com/Silly-Goose-duh', kind: 'github' },
-    instagram: { label: 'Instagram · handle to be added', href: '', kind: 'contact' },
+    instagram: { label: 'Instagram', href: 'https://www.instagram.com/me_nosmot/?hl=en', kind: 'contact' },
+    linkedin: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/tomson-j-finosh-4495b9345/', kind: 'contact' },
     pdf: { label: 'Download portfolio PDF', href: '/portfolio.pdf' },
-    email: 'gooseisback4u@gmail.com', emailLabel: 'Say hello', copyLabel: 'Copy email address', copiedLabel: 'Email copied', copyError: 'Please select and copy the email above.',
+    email: 'tjj5279@gmail.com', phone: '+91 9895329319', emailLabel: 'Say hello', copyLabel: 'Copy email address', copiedLabel: 'Email copied', copyError: 'Please select and copy the email above.',
     footerNote: 'Made with intention. And a little overthinking.', topLabel: 'Back to top',
   },
   motion: { pause: 'Pause motion', play: 'Resume motion', cursor: 'Explore' },

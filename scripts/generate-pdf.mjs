@@ -19,16 +19,15 @@ try {
     [data-reveal] { opacity: 1 !important; transform: none !important; }
     html, body { width: 1440px !important; min-width: 1440px !important; overflow: visible !important; }
   ` });
-  const height = await page.evaluate(() => Math.ceil(document.documentElement.scrollHeight));
+  const pageHeight = 1080;
   await page.pdf({
     path: output,
     printBackground: true,
     width: '1440px',
-    height: `${height}px`,
+    height: `${pageHeight}px`,
     margin: { top: '0', right: '0', bottom: '0', left: '0' },
-    pageRanges: '1',
   });
-  console.log(`Generated one-page portfolio PDF at ${output} (${height}px tall).`);
+  console.log(`Generated multi-page portfolio PDF at ${output} using ${pageHeight}px web-layout pages.`);
 } finally {
   await browser.close();
 }

@@ -16,7 +16,7 @@ The development server listens on port 3000. Production builds prerender the con
 
 The GitHub repository is [Silly-Goose-duh/tomson-j-finosh-portfolio](https://github.com/Silly-Goose-duh/tomson-j-finosh-portfolio). Vercel project `tomson-j-finosh` builds the root directory using `npm ci` and `npm run build`, then publishes `dist/`, as configured in `vercel.json`.
 
-The complete page is also available as a single-page PDF at [`/portfolio.pdf`](https://tomson-j-finosh.vercel.app/portfolio.pdf), with a download button in the contact section. Set the Vercel production environment variable `PUBLIC_SITE_URL` to `https://tomson-j-finosh.vercel.app` so the prerendered SEO metadata uses the live origin.
+The complete page is also available as a multi-page PDF at [`/portfolio.pdf`](https://tomson-j-finosh.vercel.app/portfolio.pdf), with a download button in the contact section. Set the Vercel production environment variable `PUBLIC_SITE_URL` to `https://tomson-j-finosh.vercel.app` so the prerendered SEO metadata uses the live origin.
 
 ## Personalise the content
 

@@ -39,7 +39,7 @@ export function SelectedWork({ data, externalLinkLabel }: { data: WorkData; exte
       <div className="section-wrap">
         <div className="section-kicker reveal" data-reveal><span>{data.index}</span><span>{data.statusLabel}</span></div>
         <div className="work__heading" data-reveal><h2 className="display-heading" id="work-heading">{data.heading}</h2><p>{data.intro}</p></div>
-        <div className="work-grid">{data.projects.map((project, index) => <ProjectCard key={project.id} data={project} linkLabel={project.linkLabel ?? data.linkLabel} externalLinkLabel={externalLinkLabel} index={index} />)}</div>
+         <div className="work-grid">{data.projects.map((project, index) => <ProjectCard key={project.id} data={project} linkLabel={project.linkLabel ?? data.linkLabel} externalLinkLabel={externalLinkLabel} index={index} staticCard />)}</div>
         <p className="work__note">{data.sectionNote}</p>
       </div>
     </section>
